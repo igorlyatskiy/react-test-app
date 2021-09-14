@@ -51,10 +51,10 @@ function App() {
       <Header>
         <List>
           <ListItem>
-            <CustomLink to="/">Main</CustomLink>
+            <CustomLink to="/">Posts</CustomLink>
           </ListItem>
           <ListItem>
-            <CustomLink to="/users">Posts</CustomLink>
+            <CustomLink to="/users">Users</CustomLink>
           </ListItem>
         </List>
       </Header>

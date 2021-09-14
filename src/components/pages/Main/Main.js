@@ -29,10 +29,8 @@ function Main() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (!posts.length) {
-      dispatch(getPosts())
-    }
-  })
+    dispatch(getPosts())
+  }, [])
 
   return (
     <FlexContainer>
