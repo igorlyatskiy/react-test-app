@@ -10,8 +10,6 @@ import Main from "./components/pages/Main/Main";
 import Post from "./components/pages/Post/Post";
 import Users from "./components/pages/Users/Users";
 
-
-
 function App() {
   return (
     <Router >
@@ -26,6 +24,9 @@ function App() {
         </Route>
         <Route path="/">
           <Main />
+        </Route>
+        <Route path="*">
+          <UnknownComponent />
         </Route>
       </Switch>
     </Router >

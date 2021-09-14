@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { takeEvery, put, call, all, takeLatest } from 'redux-saga/effects'
-import { GET_POST, GET_POSTS, putPostData, putPosts } from './actions'
+import { GET_POST, GET_POSTS, GET_USERS, putPostData, putPosts, putUsers } from './actions'
 require("dotenv").config();
 
 const API_LINK = process.env.REACT_APP_API_LINK;
@@ -9,8 +9,7 @@ function fetchPosts() {
   return axios.get(`${API_LINK}/posts`)
 }
 
-function* workerGetPosts(params) {
-  console.log(params)
+function* workerGetPosts() {
   const responce = yield call(fetchPosts)
   if (responce.status === 200) {
     yield put(putPosts(responce.data))
@@ -34,9 +33,22 @@ function* workerGetAllPostData({ payload: id }) {
   }
 }
 
+function fetchUsers() {
+  return axios.get(`${API_LINK}/users`)
+}
+
+function* workerGetUsers() {
+  const responce = yield call(fetchUsers)
+  if (responce.status === 200) {
+    yield put(putUsers(responce.data))
+  }
+}
+
+
 export function* watchGetInfo() {
   yield all([
     takeEvery(GET_POSTS, workerGetPosts),
-    takeEvery(GET_POST, workerGetAllPostData)
+    takeEvery(GET_POST, workerGetAllPostData),
+    takeEvery(GET_USERS, workerGetUsers)
   ]);
 }

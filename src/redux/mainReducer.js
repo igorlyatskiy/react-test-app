@@ -22,6 +22,12 @@ const mainReducer = (paramState = defaultState, action) => {
         posts: [...state.posts.filter((e) => e.id !== post.id), { ...post, comments }]
       }
     }
+    case PUT_USERS: {
+      return {
+        ...state,
+        users: action.payload
+      }
+    }
     default:
       return { ...state }
   }
