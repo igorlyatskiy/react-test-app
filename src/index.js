@@ -6,11 +6,11 @@ import { applyMiddleware, createStore } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import App from './App';
 import joinReducers from './redux/joinReducers';
-import { watchGetPosts } from './redux/sagas';
+import { watchGetInfo } from './redux/sagas';
 
 const sagaMiddleware = createSagaMiddleware();
 const store = createStore(joinReducers, composeWithDevTools(applyMiddleware(sagaMiddleware)));
-sagaMiddleware.run(watchGetPosts)
+sagaMiddleware.run(watchGetInfo)
 
 ReactDOM.render(
   <React.StrictMode>
