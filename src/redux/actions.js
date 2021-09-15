@@ -48,3 +48,5 @@ export const putUserData = (data) => ({
   type: PUT_USER_DATA,
   payload: data
 })
+
+// todo поменять названия action

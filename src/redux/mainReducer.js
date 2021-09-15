@@ -1,4 +1,4 @@
-import { PUT_POST, PUT_POSTS, PUT_USERS } from "./actions";
+import { PUT_POST, PUT_POSTS, PUT_USERS, PUT_USER_DATA } from "./actions";
 
 const defaultState = {
   posts: [],
@@ -26,6 +26,13 @@ const mainReducer = (paramState = defaultState, action) => {
       return {
         ...state,
         users: action.payload
+      }
+    }
+    case PUT_USER_DATA: {
+      const [userInfo, userPosts] = action.payload;
+      return {
+        ...state,
+        users: [...state.users.filter((e) => +e.id !== +userInfo.id), { ...userInfo, posts: userPosts }]
       }
     }
     default:

@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router'
 import styled from 'styled-components';
 import { getPostData } from '../../../redux/actions';
+import { PostHeading } from '../../styled-components/Post';
 
 const PostPageContainer = styled.div`
   width: 60vw;
@@ -14,17 +15,6 @@ const PostPageContainer = styled.div`
   align-items: flex-start;
   padding: 20px 20px;
   max-width: 960px;
-`
-const PostHeading = styled.h2`
-  font-family: Roboto;
-  font-size: 32px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 36px;
-  letter-spacing: 2px;
-  text-align: left;
-  color: #fff;
-  margin-bottom: 20px;
 `
 
 const PostContext = styled.p`

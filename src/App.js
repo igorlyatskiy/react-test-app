@@ -8,6 +8,7 @@ import './App.css'
 import Header from "./components/Header/Header";
 import Main from "./components/pages/Main/Main";
 import Post from "./components/pages/Post/Post";
+import UserPage from "./components/pages/UserPage/UserPage";
 import Users from "./components/pages/Users/Users";
 
 function App() {
@@ -18,6 +19,9 @@ function App() {
       <Switch>
         <Route path="/posts/:id">
           <Post />
+        </Route>
+        <Route path="/users/:id">
+          <UserPage />
         </Route>
         <Route path="/users">
           <Users />
