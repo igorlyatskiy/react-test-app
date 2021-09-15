@@ -1,8 +1,7 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { getPosts, getUsers } from '../../../redux/actions';
+import { getPosts } from '../../../redux/actions';
 import CustomLink from '../../styled-components/CustomLink';
 import { LittlePostHeading, PostElement } from '../../styled-components/Post';
 require("dotenv").config();

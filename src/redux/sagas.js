@@ -1,6 +1,6 @@
 import axios from 'axios'
-import { takeEvery, put, call, all, takeLatest } from 'redux-saga/effects'
-import { GET_POST, GET_POSTS, GET_USERS, GET_USER_DATA, putPostData, putPosts, putUserData, putUsers } from './actions'
+import { takeEvery, put, call, all } from 'redux-saga/effects'
+import { getPostsSuccess, getPostSuccess, getUsersSuccess, getUserSuccess, GET_POST, GET_POSTS, GET_USERS, GET_USER_DATA } from './actions'
 require("dotenv").config();
 
 const API_LINK = process.env.REACT_APP_API_LINK;
@@ -12,7 +12,7 @@ function fetchPosts() {
 function* workerGetPosts() {
   const responce = yield call(fetchPosts)
   if (responce.status === 200) {
-    yield put(putPosts(responce.data))
+    yield put(getPostsSuccess(responce.data))
   }
 }
 
@@ -29,7 +29,7 @@ function* workerGetAllPostData({ payload: id }) {
     call(fetchPostComments, id)
   ]);
   if (postInfo.status === 200 && postComments.status === 200) {
-    yield put(putPostData([postInfo.data, postComments.data]))
+    yield put(getPostSuccess([postInfo.data, postComments.data]))
   }
 }
 
@@ -44,7 +44,7 @@ function fetchUserPosts(id) {
 function* workerGetUsers() {
   const responce = yield call(fetchUsers)
   if (responce.status === 200) {
-    yield put(putUsers(responce.data))
+    yield put(getUsersSuccess(responce.data))
   }
 }
 
@@ -58,7 +58,7 @@ function* workerGetUserData({ payload: id }) {
     call(fetchUserPosts, id)
   ]);
   if (userInfo.status === 200 && userPosts.status === 200) {
-    yield put(putUserData([userInfo.data, userPosts.data]))
+    yield put(getUserSuccess([userInfo.data, userPosts.data]))
   }
 }
 

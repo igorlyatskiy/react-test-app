@@ -53,7 +53,7 @@ function UserPage() {
             </UserAdress>
           </UserInfo>
           {user.posts && user.posts.map((post) =>
-            <PostElement>
+            <PostElement key={post.id}>
               <LittlePostHeading>{post.title}</LittlePostHeading>
               <p>{post.body}</p>
               <CustomLink to={`/posts/${post.id}`} />

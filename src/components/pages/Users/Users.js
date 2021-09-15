@@ -9,14 +9,12 @@ function Users() {
   const users = useSelector(state => state.mainReducer.users);
   const dispatch = useDispatch();
 
-  console.log(users)
-
   useEffect(() => {
     dispatch(getUsers())
   }, [])
 
   return (
-    <div>
+    <>
       {users && <div>
         {users.map((e) =>
           <UserInfo key={e.id}>
@@ -30,7 +28,7 @@ function Users() {
           </UserInfo>
         )}
       </div>}
-    </div>
+    </>
   )
 }
 

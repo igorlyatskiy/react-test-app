@@ -1,4 +1,4 @@
-import { PUT_POST, PUT_POSTS, PUT_USERS, PUT_USER_DATA } from "./actions";
+import { GET_POSTS_SUCCESS, GET_POST_SUCCESS, GET_USERS_SUCCESS, GET_USER_DATA_SUCCESS } from "./actions";
 
 const defaultState = {
   posts: [],
@@ -8,27 +8,26 @@ const defaultState = {
 const mainReducer = (paramState = defaultState, action) => {
   const state = { ...paramState };
   switch (action.type) {
-    case PUT_POSTS: {
+    case GET_POSTS_SUCCESS: {
       return {
         ...state,
         posts: action.payload
       }
     }
-    case PUT_POST: {
+    case GET_POST_SUCCESS: {
       const [post, comments] = action.payload;
-      console.log(action.payload)
       return {
         ...state,
         posts: [...state.posts.filter((e) => e.id !== post.id), { ...post, comments }]
       }
     }
-    case PUT_USERS: {
+    case GET_USERS_SUCCESS: {
       return {
         ...state,
         users: action.payload
       }
     }
-    case PUT_USER_DATA: {
+    case GET_USER_DATA_SUCCESS: {
       const [userInfo, userPosts] = action.payload;
       return {
         ...state,

@@ -1,15 +1,15 @@
 export const GET_POSTS = 'GET_POSTS'
-export const PUT_POSTS = 'PUT_POSTS'
+export const GET_POSTS_SUCCESS = 'GET_POSTS_SUCCESS'
 
 export const GET_POST = 'GET_POST'
-export const PUT_POST = 'PUT_POST'
+export const GET_POST_SUCCESS = 'GET_POST_SUCCESS'
 
 export const getPosts = () => ({
   type: GET_POSTS,
 });
 
-export const putPosts = (posts) => ({
-  type: PUT_POSTS,
+export const getPostsSuccess = (posts) => ({
+  type: GET_POSTS_SUCCESS,
   payload: posts
 })
 
@@ -18,24 +18,24 @@ export const getPostData = (id) => ({
   payload: id
 })
 
-export const putPostData = (data) => ({
-  type: PUT_POST,
+export const getPostSuccess = (data) => ({
+  type: GET_POST_SUCCESS,
   payload: data
 })
 
 
 export const GET_USERS = 'GET_USERS'
-export const PUT_USERS = 'PUT_USERS'
+export const GET_USERS_SUCCESS = 'GET_USERS_SUCCESS'
 
 export const GET_USER_DATA = 'GET_USER_DATA'
-export const PUT_USER_DATA = 'PUT_USER_DATA'
+export const GET_USER_DATA_SUCCESS = 'GET_USER_DATA_SUCCESS'
 
 export const getUsers = () => ({
   type: GET_USERS,
 });
 
-export const putUsers = (users) => ({
-  type: PUT_USERS,
+export const getUsersSuccess = (users) => ({
+  type: GET_USERS_SUCCESS,
   payload: users
 })
 
@@ -44,9 +44,7 @@ export const getUserData = (id) => ({
   payload: id
 })
 
-export const putUserData = (data) => ({
-  type: PUT_USER_DATA,
+export const getUserSuccess = (data) => ({
+  type: GET_USER_DATA_SUCCESS,
   payload: data
 })
-
-// todo поменять названия action
