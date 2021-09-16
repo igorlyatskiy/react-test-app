@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { getPosts } from '../../../redux/actions';
+
 import CustomLink from '../../styled-components/CustomLink';
 import { LittlePostHeading, PostElement } from '../../styled-components/Post';
-require("dotenv").config();
+import { getPosts } from '../../../redux/actions';
 
 const FlexContainer = styled.div`
   display: flex;

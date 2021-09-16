@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router'
 import styled from 'styled-components';
+
 import { getPostData } from '../../../redux/actions';
 import { PostHeading } from '../../styled-components/Post';
 

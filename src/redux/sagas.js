@@ -1,12 +1,13 @@
 import axios from 'axios'
 import { takeEvery, put, call, all } from 'redux-saga/effects'
+
 import { getPostsSuccess, getPostSuccess, getUsersSuccess, getUserSuccess, GET_POST, GET_POSTS, GET_USERS, GET_USER_DATA } from './actions'
-require("dotenv").config();
 
 const API_LINK = process.env.REACT_APP_API_LINK;
+const axiosInstance = axios.create({ baseURL: API_LINK });
 
 function fetchPosts() {
-  return axios.get(`${API_LINK}/posts`)
+  return axiosInstance.get(`/posts`)
 }
 
 function* workerGetPosts() {
@@ -17,10 +18,10 @@ function* workerGetPosts() {
 }
 
 function fetchPostInfo(id) {
-  return axios.get(`${API_LINK}/posts/${id}`)
+  return axiosInstance.get(`/posts/${id}`)
 }
 function fetchPostComments(id) {
-  return axios.get(`${API_LINK}/posts/${id}/comments`)
+  return axiosInstance.get(`/posts/${id}/comments`)
 }
 
 function* workerGetAllPostData({ payload: id }) {
@@ -34,11 +35,11 @@ function* workerGetAllPostData({ payload: id }) {
 }
 
 function fetchUsers() {
-  return axios.get(`${API_LINK}/users`)
+  return axiosInstance.get(`/users`)
 }
 
 function fetchUserPosts(id) {
-  return axios.get(`${API_LINK}/posts?userId=${id}`)
+  return axiosInstance.get(`/posts?userId=${id}`)
 }
 
 function* workerGetUsers() {
@@ -49,7 +50,7 @@ function* workerGetUsers() {
 }
 
 function fetchUserInfo(id) {
-  return axios.get(`${API_LINK}/users/${id}`)
+  return axiosInstance.get(`/users/${id}`)
 }
 
 function* workerGetUserData({ payload: id }) {

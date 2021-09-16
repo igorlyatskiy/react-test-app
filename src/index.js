@@ -4,9 +4,10 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { applyMiddleware, createStore } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
+
 import App from './App';
-import joinReducers from './redux/joinReducers';
 import { watchGetInfo } from './redux/sagas';
+import joinReducers from './redux/joinReducers';
 
 const sagaMiddleware = createSagaMiddleware();
 const store = createStore(joinReducers, composeWithDevTools(applyMiddleware(sagaMiddleware)));

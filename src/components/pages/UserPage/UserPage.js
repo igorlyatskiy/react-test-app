@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router';
 import styled from 'styled-components';
+
 import { getUserData } from '../../../redux/actions'
 import CustomLink from '../../styled-components/CustomLink';
 import { LittlePostHeading, PostElement } from '../../styled-components/Post';
