@@ -37,3 +37,5 @@ https://github.com/igorlyatskiy/react-test-app
 - Делаем билд `npm run build`
 - `netlify deploy` (при желании задеплоить в прод, `netlify deploy --prod`)
 - Папка для деплоя `./build`
+
+Готово! Ваш проект задеплоен и доступен по ссылке в консоли
