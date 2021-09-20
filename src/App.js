@@ -7,10 +7,11 @@ import {
 
 import './App.css'
 import Header from "./components/Header/Header";
-import Main from "./components/pages/Main/Main";
-import Post from "./components/pages/Post/Post";
-import UserPage from "./components/pages/UserPage/UserPage";
-import Users from "./components/pages/Users/Users";
+import Error from "./components/styled-components/Error";
+import Main from "./pages/Main/Main";
+import Post from "./pages/Post/Post";
+import UserPage from "./pages/UserPage/UserPage";
+import Users from "./pages/Users/Users";
 
 function App() {
   return (
@@ -31,13 +32,12 @@ function App() {
           <Main />
         </Route>
         <Route path="*">
-          <UnknownComponent />
+          <Error >This page does not exist.</Error>
         </Route>
       </Switch>
     </Router >
   );
 }
 
-const UnknownComponent = () => <h3>Sorry, this link does not exist :( </h3>
 
 export default App;

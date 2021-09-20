@@ -3,8 +3,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router'
 import styled from 'styled-components';
 
-import { getPostData } from '../../../redux/actions';
-import { PostHeading } from '../../styled-components/Post';
+import { getPostData } from '../../redux/post/actions';
+import { PostCommentsHeading, PostHeading } from '../../components/styled-components/Post';
+import Error from '../../components/styled-components/Error';
+import Loader from '../../components/styled-components/Loader';
 
 const PostPageContainer = styled.div`
   width: 60vw;
@@ -43,6 +45,10 @@ const CommentText = styled.p`
 const CommentContainer = styled.div`
   padding: 10px 0;
   border-top: 1px solid #fff;
+
+  &:first-of-type{
+    border: 0px;
+  }
 `
 
 const RowContainer = styled.div`
@@ -64,7 +70,7 @@ const ContactsBlock = styled.span`
 `
 
 function Post() {
-  const posts = useSelector(state => state.mainReducer.posts);
+  const { posts, error, loading } = useSelector(state => state.postReducer);
   const { id } = useParams();
   const dispatch = useDispatch();
 
@@ -81,10 +87,11 @@ function Post() {
 
   return (
     <>
-      {selectedPost &&
+      {selectedPost && !error &&
         <PostPageContainer>
           <PostHeading>{selectedPost.title}</PostHeading>
           <PostContext>{selectedPost.body}</PostContext>
+          <PostCommentsHeading>Comments: </PostCommentsHeading>
           {comments && comments.map((e) =>
             <CommentContainer key={e.id}>
               <CommentText>{e.body}</CommentText>
@@ -95,6 +102,8 @@ function Post() {
             </CommentContainer>)
           }
         </PostPageContainer>}
+      {error && <Error >404, Post not found</Error>}
+      {loading && <Loader />}
     </>
   )
 }

@@ -3,10 +3,12 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router';
 import styled from 'styled-components';
 
-import { getUserData } from '../../../redux/actions'
-import CustomLink from '../../styled-components/CustomLink';
-import { LittlePostHeading, PostElement } from '../../styled-components/Post';
-import { UserContacts, UserInfo, UserName } from '../../styled-components/User';
+import { getUserData } from '../../redux/user/actions';
+import CustomLink from '../../components/styled-components/CustomLink';
+import { LittlePostHeading, PostElement } from '../../components/styled-components/Post';
+import { UserContacts, UserInfo, UserName } from '../../components/styled-components/User';
+import Error from '../../components/styled-components/Error';
+import Loader from '../../components/styled-components/Loader';
 
 const UserAdress = styled.p`
   font-family: Roboto;
@@ -30,7 +32,7 @@ function UserPage() {
   const dispatch = useDispatch()
   const { id } = useParams();
 
-  const users = useSelector(state => state.mainReducer.users);
+  const { users, loading, error } = useSelector(state => state.userReducer);
   const user = users.find((e) => +e.id === +id);
 
   useEffect(() => {
@@ -39,8 +41,7 @@ function UserPage() {
 
   return (
     <>
-      {
-        user &&
+      {user && !error &&
         <Wrapper>
           <UserInfo key={user.id}>
             <UserName>
@@ -60,6 +61,8 @@ function UserPage() {
               <CustomLink to={`/posts/${post.id}`} />
             </PostElement>)}
         </Wrapper>}
+      {error && <Error>404, Post not found</Error>}
+      {loading && <Loader />}
     </ >
   )
 }
