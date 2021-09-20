@@ -28,8 +28,6 @@ export const LittlePostHeading = styled.h3`
 export const PostCommentsHeading = styled.h3`
   font-size: 24px;
   margin-bottom: 0px;
-  border-top: 1px solid #fff;
   width: 100%;
   margin-top: 5px;
-  padding-top: 20px;
 `

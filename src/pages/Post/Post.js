@@ -75,11 +75,7 @@ function Post() {
   const dispatch = useDispatch();
 
   const selectedPost = posts.find((e) => +e.id === +id);
-
-  let comments = [];
-  if (selectedPost) {
-    comments = selectedPost.comments;
-  }
+  const comments = selectedPost ? selectedPost.comments : [];
 
   useEffect(() => {
     dispatch(getPostData(id))
@@ -87,7 +83,7 @@ function Post() {
 
   return (
     <>
-      {selectedPost && !error &&
+      {selectedPost && !loading && !error &&
         <PostPageContainer>
           <PostHeading>{selectedPost.title}</PostHeading>
           <PostContext>{selectedPost.body}</PostContext>

@@ -7,5 +7,5 @@ const StyledLoader = styled.img`
   margin: 0 auto;
   object-position: center center;
 `
-
-export default () => <StyledLoader src={loader}></StyledLoader>
+const Loader = () => <StyledLoader src={loader}></StyledLoader>
+export { Loader as default }
