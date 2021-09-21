@@ -14,20 +14,20 @@ function Users() {
 
   useEffect(() => {
     dispatch(getUsers())
-  }, [])
+  }, [dispatch])
 
   return (
     <>
       {users && !error && <div>
-        {users.map((e) =>
-          <UserInfo key={e.id}>
+        {users.map((user) =>
+          <UserInfo key={user.id}>
             <UserName>
-              {e.username} ({e.name})
+              {user.username} ({user.name})
             </UserName>
             <UserContacts>
-              {e.email}, {e.phone}
+              {user.email}, {user.phone}
             </UserContacts>
-            <CustomLink to={`/users/${e.id}`} />
+            <CustomLink to={`/users/${user.id}`} />
           </UserInfo>
         )}
       </div>}

@@ -29,7 +29,7 @@ const userReducer = createReducer(defaultState, {
   },
   [getUserSuccess]: (state, { payload }) => {
     const [userInfo, userPosts] = payload;
-    state.users = [...state.users.filter((e) => +e.id !== +userInfo.id), { ...userInfo, posts: userPosts }]
+    state.users = [...state.users.filter((user) => +user.id !== +userInfo.id), { ...userInfo, posts: userPosts }]
     state.loading = false;
     state.error = false;
   },

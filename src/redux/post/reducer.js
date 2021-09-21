@@ -30,7 +30,7 @@ const postReducer = createReducer(defaultState, {
   },
   [getPostSuccess]: (state, { payload }) => {
     const [post, comments] = payload;
-    state.posts = [...state.posts.filter((e) => e.id !== post.id), { ...post, comments }]
+    state.posts = [...state.posts.filter((statePost) => statePost.id !== post.id), { ...post, comments }]
     state.loading = false;
     state.error = false;
   },

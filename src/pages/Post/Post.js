@@ -1,12 +1,14 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router'
 import styled from 'styled-components';
+import axios from 'axios';
 
 import { getPostData } from '../../redux/post/actions';
 import { PostCommentsHeading, PostHeading } from '../../components/styled-components/Post';
 import Error from '../../components/styled-components/Error';
 import Loader from '../../components/styled-components/Loader';
+import { UserContacts, UserInfo } from '../../components/styled-components/User';
 
 const PostPageContainer = styled.div`
   width: 60vw;
@@ -67,19 +69,45 @@ const ContactsBlock = styled.span`
   text-align: left;
   color: #ffa500;
   max-width: 50%;
-`
+  `
+
+const API_LINK = process.env.REACT_APP_API_LINK;
+
+function getUser(setUser, id) {
+  try {
+    axios.get(`${API_LINK}/users/${id}`)
+      .then((user) => {
+        if (user.status === 200) {
+          setUser(user.data);
+        }
+      });
+  } catch { }
+}
 
 function Post() {
   const { posts, error, loading } = useSelector(state => state.postReducer);
+  const { users } = useSelector(state => state.userReducer);
   const { id } = useParams();
   const dispatch = useDispatch();
+  const [user, setUser] = useState(null);
 
-  const selectedPost = posts.find((e) => +e.id === +id);
+  const selectedPost = posts.find((post) => +post.id === +id);
+  const userId = selectedPost ? selectedPost.userId : null;
+  const selectedUser = selectedPost ? users.find((user) => +user.id === +userId) : null;
   const comments = selectedPost ? selectedPost.comments : [];
+
 
   useEffect(() => {
     dispatch(getPostData(id))
-  }, [])
+
+    if (selectedUser && !user) {
+      setUser(selectedUser);
+    } else {
+      if (userId) {
+        getUser(setUser, userId);
+      }
+    }
+  }, [dispatch, userId])
 
   return (
     <>
@@ -87,13 +115,18 @@ function Post() {
         <PostPageContainer>
           <PostHeading>{selectedPost.title}</PostHeading>
           <PostContext>{selectedPost.body}</PostContext>
+          {user &&
+            <UserInfo>
+              <UserContacts>{user.email}</UserContacts>
+            </UserInfo>
+          }
           <PostCommentsHeading>Comments: </PostCommentsHeading>
-          {comments && comments.map((e) =>
-            <CommentContainer key={e.id}>
-              <CommentText>{e.body}</CommentText>
+          {comments && comments.map((comment) =>
+            <CommentContainer key={comment.id}>
+              <CommentText>{comment.body}</CommentText>
               <RowContainer>
-                <ContactsBlock>{e.name}</ContactsBlock>
-                <ContactsBlock>{e.email}</ContactsBlock>
+                <ContactsBlock>{comment.name}</ContactsBlock>
+                <ContactsBlock>{comment.email}</ContactsBlock>
               </RowContainer>
             </CommentContainer>)
           }

@@ -33,11 +33,11 @@ function UserPage() {
   const { id } = useParams();
 
   const { users, loading, error } = useSelector(state => state.userReducer);
-  const user = users.find((e) => +e.id === +id);
+  const user = users.find((user) => +user.id === +id);
 
   useEffect(() => {
     dispatch(getUserData(id))
-  }, [])
+  }, [dispatch, id])
 
   return (
     <>

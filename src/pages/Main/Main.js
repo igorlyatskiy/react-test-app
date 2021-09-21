@@ -23,7 +23,7 @@ function Main() {
 
   useEffect(() => {
     dispatch(getPosts())
-  }, [])
+  }, [dispatch])
 
   return (
     <>
