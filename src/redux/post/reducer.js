@@ -13,6 +13,7 @@ const postReducer = createReducer(defaultState, {
   [getPosts]: (state) => {
     state.loading = true;
     state.error = false;
+    state.posts = [];
   },
   [getPostsSuccess]: (state, { payload }) => {
     state.posts = payload;

@@ -1,6 +1,6 @@
 import { takeEvery, put, call, all } from 'redux-saga/effects'
 
-import { axiosPostsInstance } from '../../Api/axios';
+import { axiosPostsInstance } from '../../api/axios';
 import { getPostFailed, getPostsFailed, getPostsSuccess, getPostSuccess, GET_POST, GET_POSTS } from './actions';
 
 

@@ -12,6 +12,7 @@ const userReducer = createReducer(defaultState, {
   [getUsers]: (state) => {
     state.loading = true;
     state.error = false;
+    state.users=[];
   },
   [getUsersSuccess]: (state, { payload }) => {
     state.users = payload;

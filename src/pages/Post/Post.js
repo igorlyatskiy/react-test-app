@@ -4,11 +4,11 @@ import { useParams } from 'react-router'
 import styled from 'styled-components';
 
 import { getPostData } from '../../redux/post/actions';
-import { PostCommentsHeading, PostHeading } from '../../components/styled-components/Post';
+import { PostCommentsHeading, PostHeading, PostUserContent, PostUserInfo } from '../../components/styled-components/Post';
 import Error from '../../components/styled-components/Error';
 import Loader from '../../components/styled-components/Loader';
-import { UserContacts, UserInfo } from '../../components/styled-components/User';
-import { axiosUsersInstance } from '../../Api/axios';
+import { axiosUsersInstance } from '../../api/axios';
+import CustomLink from '../../components/styled-components/CustomLink';
 
 const PostPageContainer = styled.div`
   width: 60vw;
@@ -71,41 +71,45 @@ const ContactsBlock = styled.span`
   max-width: 50%;
   `
 
-function getUser(setUser, id) {
-  try {
-    axiosUsersInstance.get(`/${id}`)
-      .then((user) => {
-        if (user.status === 200) {
-          setUser(user.data);
-        }
-      });
-  } catch { }
+function getUser(id) {
+  return axiosUsersInstance.get(`/${id}`)
+    .then((user) => {
+      if (user.status === 200) {
+        return user.data;
+      } else {
+        return null;
+      }
+    });
+}
+
+function useCurrentUser(post) {
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    if (post) {
+      if (user === null || user.id !== post.userId) {
+        getUser(post.userId).then((result) => {
+          setUser(result);
+        });
+      }
+    }
+  }, [post, user]);
+
+  return user;
 }
 
 function Post() {
   const { posts, error, loading } = useSelector(state => state.postReducer);
-  const { users } = useSelector(state => state.userReducer);
   const { id } = useParams();
   const dispatch = useDispatch();
-  const [user, setUser] = useState(null);
 
   const selectedPost = posts.find((post) => +post.id === +id);
-  const userId = selectedPost ? selectedPost.userId : null;
-  const selectedUser = selectedPost ? users.find((user) => +user.id === +userId) : null;
   const comments = selectedPost ? selectedPost.comments : [];
-
+  const user = useCurrentUser(selectedPost);
 
   useEffect(() => {
     dispatch(getPostData(id))
-
-    if (selectedUser && !user) {
-      setUser(selectedUser);
-    } else {
-      if (userId) {
-        getUser(setUser, userId);
-      }
-    }
-  }, [dispatch, userId])
+  }, [dispatch, id])
 
   return (
     <>
@@ -116,9 +120,11 @@ function Post() {
               <PostHeading>{selectedPost.title}</PostHeading>
               <PostContext>{selectedPost.body}</PostContext>
               {user &&
-                <UserInfo>
-                  <UserContacts>{user.email}</UserContacts>
-                </UserInfo>
+                <PostUserInfo>
+                  <CustomLink to={`/users/${user.id}`} />
+                  <PostUserContent> {user.email} </PostUserContent>
+                  <PostUserContent> {user.name} </PostUserContent>
+                </PostUserInfo>
               }
               <PostCommentsHeading>Comments: </PostCommentsHeading>
               {comments && comments.map((comment) =>

@@ -31,3 +31,27 @@ export const PostCommentsHeading = styled.h3`
   width: 100%;
   margin-top: 5px;
 `
+
+export const PostUserInfo = styled.div`
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid #fff;
+  width: 100%;
+  padding-top: 10px;
+  margin-bottom: 0px;
+  `
+
+export const PostUserContent = styled.span`
+  font-size: 16px;
+  margin-bottom: 0px;
+  margin-top: 0px;
+  font-style: normal;
+  font-weight: 400;
+  letter-spacing: 2px;
+  text-align: left;
+  color: #fff;
+  margin-bottom: 7px;
+`

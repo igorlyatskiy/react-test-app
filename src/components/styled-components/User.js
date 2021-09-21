@@ -28,4 +28,5 @@ export const UserContacts = styled.p`
   letter-spacing: 2px;
   text-align: justify;
   color: #EA0042;
+  position: relative;
 `
