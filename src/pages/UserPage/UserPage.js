@@ -61,7 +61,7 @@ function UserPage() {
               <CustomLink to={`/posts/${post.id}`} />
             </PostElement>)}
         </Wrapper>}
-      {error && <Error>404, Post not found</Error>}
+      {error && <Error>404, User not found</Error>}
       {loading && <Loader />}
     </ >
   )

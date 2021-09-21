@@ -2,13 +2,13 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router'
 import styled from 'styled-components';
-import axios from 'axios';
 
 import { getPostData } from '../../redux/post/actions';
 import { PostCommentsHeading, PostHeading } from '../../components/styled-components/Post';
 import Error from '../../components/styled-components/Error';
 import Loader from '../../components/styled-components/Loader';
 import { UserContacts, UserInfo } from '../../components/styled-components/User';
+import { axiosUsersInstance } from '../../Api/axios';
 
 const PostPageContainer = styled.div`
   width: 60vw;
@@ -71,11 +71,9 @@ const ContactsBlock = styled.span`
   max-width: 50%;
   `
 
-const API_LINK = process.env.REACT_APP_API_LINK;
-
 function getUser(setUser, id) {
   try {
-    axios.get(`${API_LINK}/users/${id}`)
+    axiosUsersInstance.get(`/${id}`)
       .then((user) => {
         if (user.status === 200) {
           setUser(user.data);

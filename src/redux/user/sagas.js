@@ -1,19 +1,15 @@
-import axios from 'axios'
 import { takeEvery, put, call, all } from 'redux-saga/effects'
 
+import { axiosPostsInstance, axiosUsersInstance } from '../../Api/axios';
 import { getUserFailed, getUsersFailed, getUsersSuccess, getUserSuccess, GET_USERS, GET_USER_DATA } from './actions';
 
 
-const API_LINK = process.env.REACT_APP_API_LINK;
-const axiosInstance = axios.create({ baseURL: API_LINK });
-
-
 function fetchUsers() {
-  return axiosInstance.get(`/users`)
+  return axiosUsersInstance.get()
 }
 
 function fetchUserPosts(id) {
-  return axiosInstance.get(`/posts?userId=${id}`)
+  return axiosPostsInstance.get(`?userId=${id}`)
 }
 
 function* workerGetUsers() {
@@ -28,7 +24,7 @@ function* workerGetUsers() {
 }
 
 function fetchUserInfo(id) {
-  return axiosInstance.get(`/users/${id}`)
+  return axiosUsersInstance.get(`/${id}`)
 }
 
 function* workerGetUserData({ payload: id }) {

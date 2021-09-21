@@ -1,14 +1,11 @@
-import axios from 'axios'
 import { takeEvery, put, call, all } from 'redux-saga/effects'
 
+import { axiosPostsInstance } from '../../Api/axios';
 import { getPostFailed, getPostsFailed, getPostsSuccess, getPostSuccess, GET_POST, GET_POSTS } from './actions';
 
 
-const API_LINK = process.env.REACT_APP_API_LINK;
-const axiosInstance = axios.create({ baseURL: `${API_LINK}/posts` });
-
 function fetchPosts() {
-  return axiosInstance.get()
+  return axiosPostsInstance.get()
 }
 
 function* workerGetPosts() {
@@ -23,10 +20,10 @@ function* workerGetPosts() {
 }
 
 function fetchPostInfo(id) {
-  return axiosInstance.get(`/${id}`)
+  return axiosPostsInstance.get(`/${id}`)
 }
 function fetchPostComments(id) {
-  return axiosInstance.get(`/${id}/comments`)
+  return axiosPostsInstance.get(`/${id}/comments`)
 }
 
 function* workerGetAllPostData({ payload: id }) {
