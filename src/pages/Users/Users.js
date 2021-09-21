@@ -18,21 +18,22 @@ function Users() {
 
   return (
     <>
-      {users && !error && <div>
-        {users.map((user) =>
-          <UserInfo key={user.id}>
-            <UserName>
-              {user.username} ({user.name})
-            </UserName>
-            <UserContacts>
-              {user.email}, {user.phone}
-            </UserContacts>
-            <CustomLink to={`/users/${user.id}`} />
-          </UserInfo>
-        )}
-      </div>}
-      {loading && <Loader />}
-      {error && <Error >An error occured</Error>}
+      {loading ? <Loader /> : <>
+        {!error && users ?
+          <div>
+            {users.map((user) =>
+              <UserInfo key={user.id}>
+                <UserName>
+                  {user.username} ({user.name})
+                </UserName>
+                <UserContacts>
+                  {user.email}, {user.phone}
+                </UserContacts>
+                <CustomLink to={`/users/${user.id}`} />
+              </UserInfo>
+            )}
+          </div> : <Error>An error occured</Error>}
+      </>}
     </>
   )
 }

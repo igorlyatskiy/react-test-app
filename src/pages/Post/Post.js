@@ -109,28 +109,31 @@ function Post() {
 
   return (
     <>
-      {selectedPost && !loading && !error &&
-        <PostPageContainer>
-          <PostHeading>{selectedPost.title}</PostHeading>
-          <PostContext>{selectedPost.body}</PostContext>
-          {user &&
-            <UserInfo>
-              <UserContacts>{user.email}</UserContacts>
-            </UserInfo>
+      {loading ? <Loader /> :
+        <>
+          {!error && selectedPost ?
+            <PostPageContainer>
+              <PostHeading>{selectedPost.title}</PostHeading>
+              <PostContext>{selectedPost.body}</PostContext>
+              {user &&
+                <UserInfo>
+                  <UserContacts>{user.email}</UserContacts>
+                </UserInfo>
+              }
+              <PostCommentsHeading>Comments: </PostCommentsHeading>
+              {comments && comments.map((comment) =>
+                <CommentContainer key={comment.id}>
+                  <CommentText>{comment.body}</CommentText>
+                  <RowContainer>
+                    <ContactsBlock>{comment.name}</ContactsBlock>
+                    <ContactsBlock>{comment.email}</ContactsBlock>
+                  </RowContainer>
+                </CommentContainer>)
+              }
+            </PostPageContainer> : <Error>404, Post not found</Error>
           }
-          <PostCommentsHeading>Comments: </PostCommentsHeading>
-          {comments && comments.map((comment) =>
-            <CommentContainer key={comment.id}>
-              <CommentText>{comment.body}</CommentText>
-              <RowContainer>
-                <ContactsBlock>{comment.name}</ContactsBlock>
-                <ContactsBlock>{comment.email}</ContactsBlock>
-              </RowContainer>
-            </CommentContainer>)
-          }
-        </PostPageContainer>}
-      {error && <Error >404, Post not found</Error>}
-      {loading && <Loader />}
+        </>
+      }
     </>
   )
 }

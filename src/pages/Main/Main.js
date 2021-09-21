@@ -27,17 +27,18 @@ function Main() {
 
   return (
     <>
-      <FlexContainer>
-        {posts && !error && posts.map((post) =>
-          <PostElement key={post.id}>
-            <CustomLink to={`/posts/${post.id}`} />
-            <LittlePostHeading>{post.title}</LittlePostHeading>
-            <p>{post.body}</p>
-          </PostElement>
-        )}
-      </FlexContainer>
-      {loading && <Loader />}
-      {error && <Error >An error occured</Error>}
+      {loading ? <Loader /> :
+        <FlexContainer>
+          {!error ? posts.map((post) =>
+            <PostElement key={post.id}>
+              <CustomLink to={`/posts/${post.id}`} />
+              <LittlePostHeading>{post.title}</LittlePostHeading>
+              <p>{post.body}</p>
+            </PostElement>
+          ) : <Error >An error occured</Error>
+          }
+        </FlexContainer>
+      }
     </>
   )
 }

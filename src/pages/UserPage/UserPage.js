@@ -41,28 +41,31 @@ function UserPage() {
 
   return (
     <>
-      {user && !error &&
-        <Wrapper>
-          <UserInfo key={user.id}>
-            <UserName>
-              {user.username} ({user.name})
-            </UserName>
-            <UserContacts>
-              {user.email}, {user.phone}
-            </UserContacts>
-            <UserAdress>
-              {user.address.city}, {user.address.street}
-            </UserAdress>
-          </UserInfo>
-          {user.posts && user.posts.map((post) =>
-            <PostElement key={post.id}>
-              <LittlePostHeading>{post.title}</LittlePostHeading>
-              <p>{post.body}</p>
-              <CustomLink to={`/posts/${post.id}`} />
-            </PostElement>)}
-        </Wrapper>}
-      {error && <Error>404, User not found</Error>}
-      {loading && <Loader />}
+      {loading ? <Loader /> :
+        <>
+          {!error && user ?
+            <Wrapper>
+              <UserInfo key={user.id}>
+                <UserName>
+                  {user.username} ({user.name})
+                </UserName>
+                <UserContacts>
+                  {user.email}, {user.phone}
+                </UserContacts>
+                <UserAdress>
+                  {user.address.city}, {user.address.street}
+                </UserAdress>
+              </UserInfo>
+              {user.posts && user.posts.map((post) =>
+                <PostElement key={post.id}>
+                  <LittlePostHeading>{post.title}</LittlePostHeading>
+                  <p>{post.body}</p>
+                  <CustomLink to={`/posts/${post.id}`} />
+                </PostElement>)}
+            </Wrapper> : <Error>404, User not found</Error>
+          }
+        </>
+      }
     </ >
   )
 }
